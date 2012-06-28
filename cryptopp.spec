@@ -189,5 +189,4 @@ autoreconf -fi
 
 %files progs
 %{_bindir}/cryptest
-%{_bindir}/cryptestcwd
 %{_datadir}/%{name}
