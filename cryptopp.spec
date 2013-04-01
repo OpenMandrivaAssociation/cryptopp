@@ -1,17 +1,16 @@
-%define major 6
+%define major	6
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 %define staticname %mklibname %{name} -s -d
-%define fver %(echo %version |sed s/\\\\.//g)
+%define fver %(echo %{version} |sed s/\\\\.//g)
 
+Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
 Version:	5.6.1
 Release:	1
-Epoch:		0
-Summary:	Public domain C++ class library of cryptographic schemes
 License:	Public Domain
 Group:		System/Libraries
-URL:		http://www.cryptopp.com/
+Url:		http://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
 Patch0:		cryptopp-5.6.1-autotools.patch
@@ -86,8 +85,8 @@ contributors and placed in the public domain, or derived from other
 sources that are public domain (again with the exception of mars.cpp).
 
 %package -n %{libname}
-Group:		System/Libraries
 Summary:	Base shared library part of %{name}
+Group:		System/Libraries
 
 %description -n %{libname}
 Crypto++ Library is a free C++ class library of cryptographic schemes.
@@ -152,28 +151,27 @@ autoreconf -fi
 %{_bindir}/doxygen
 
 %install
-%__rm -rf %{buildroot}
 %makeinstall_std
 
-%__perl -pi -e 's/\r$//g' License.txt Readme.txt
+sed -i -e 's/\r$//g' License.txt Readme.txt
 
 # Install pkg-config file
-%__install -D -m 0644 %{SOURCE1} %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
+install -D -m 0644 %{SOURCE1} %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
 # Set variables
-%__sed -i "s|@PREFIX@|%{_prefix}|g;s|@LIBDIR@|%{_libdir}|g;s|@INCLUDEDIR@|%{_includedir}|g" %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
+sed -i "s|@PREFIX@|%{_prefix}|g;s|@LIBDIR@|%{_libdir}|g;s|@INCLUDEDIR@|%{_includedir}|g" %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
 
-%__install -d %{buildroot}%{_datadir}/%{name}/TestVectors
-%__install -m 0644 TestVectors/* %{buildroot}%{_datadir}/%{name}/TestVectors
-%__install -d %{buildroot}%{_datadir}/%{name}/TestData
-%__install -m 0644 TestData/* %{buildroot}%{_datadir}/%{name}/TestData
+install -d %{buildroot}%{_datadir}/%{name}/TestVectors
+install -m 0644 TestVectors/* %{buildroot}%{_datadir}/%{name}/TestVectors
+install -d %{buildroot}%{_datadir}/%{name}/TestData
+install -m 0644 TestData/* %{buildroot}%{_datadir}/%{name}/TestData
 
-%__rm -f %{buildroot}%{_bindir}/cryptestcwd
+rm -f %{buildroot}%{_bindir}/cryptestcwd
 
 %check
 ./cryptestcwd v
 
 %files -n %{libname}
-%{_libdir}/*.so.%{major}*
+%{_libdir}/libcryptopp.so.%{major}*
 
 %files -n %{devname}
 %{_includedir}/%{name}
@@ -184,9 +182,9 @@ autoreconf -fi
 %{_libdir}/*.a
 
 %files doc
-%defattr(0644,root,root,0755)
 %doc doc/html License.txt Readme.txt
 
 %files progs
 %{_bindir}/cryptest
 %{_datadir}/%{name}
+
