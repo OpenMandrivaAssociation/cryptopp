@@ -7,7 +7,7 @@
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
 Version:	5.6.1
-Release:	1
+Release:	2
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
