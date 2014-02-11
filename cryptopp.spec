@@ -172,7 +172,8 @@ rm -f GNUmakefile
 
 %build
 autoreconf -fi
-%configure2_5x
+%configure2_5x \
+	--enable-static
 %make
 doxygen
 
