@@ -1,4 +1,4 @@
-%define major	6
+%define major 6
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 %define staticname %mklibname %{name} -s -d
@@ -6,21 +6,19 @@
 
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
-Version:	5.6.1
-Release:	9
+Version:	5.6.2
+Release:	1
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
-Patch0:		cryptopp-5.6.1-autotools.patch
-Patch1:		cryptopp-5.6.1-s390.patch
+Patch0:		cryptopp-5.6.2-autotools.patch
 # Debian patch installs TestVectors and TestData in /usr/share/cryptopp/
 # http://groups.google.com/group/cryptopp-users/browse_thread/thread/6fe2192340f07e5d
-Patch2:		cryptopp-data-files-location.patch
+Patch1:		cryptopp-5.6.2-data-files-location.patch
 # Enable SSE2 only on x86_64
-Patch3:		cryptopp-x86-disable-sse2.patch
-Patch4:		cryptopp-5.6.1-gcc-4.7.0.patch
+Patch2:		cryptopp-5.6.2-x86-disable-sse2.patch
 BuildRequires:	doxygen
 
 %description
@@ -84,6 +82,8 @@ Crypto++ was either written specifically for this project by its
 contributors and placed in the public domain, or derived from other 
 sources that are public domain (again with the exception of mars.cpp).
 
+#----------------------------------------------------------------------------
+
 %package -n %{libname}
 Summary:	Base shared library part of %{name}
 Group:		System/Libraries
@@ -93,6 +93,11 @@ Crypto++ Library is a free C++ class library of cryptographic schemes.
 
 This package contains the library needed to run programs dynamically
 linked with %{name}.
+
+%files -n %{libname}
+%{_libdir}/libcryptopp.so.%{major}*
+
+#----------------------------------------------------------------------------
 
 %package -n %{devname}
 Summary:	Header files and development documentation for %{name}
@@ -105,6 +110,13 @@ Crypto++ Library is a free C++ class library of cryptographic schemes.
 This package contains the header files and development documentation
 for %{name}.
 
+%files -n %{devname}
+%{_includedir}/%{name}
+%{_libdir}/*.so
+%{_libdir}/pkgconfig/*.pc
+
+#----------------------------------------------------------------------------
+
 %package -n %{staticname}
 Summary:	Static libraries for programs which will use %{name}
 Group:		Development/C++
@@ -114,6 +126,11 @@ Requires:	%{devname} = %{EVRD}
 Crypto++ Library is a free C++ class library of cryptographic schemes.
 
 This package contains the static library for %{name}.
+
+%files -n %{staticname}
+%{_libdir}/*.a
+
+#----------------------------------------------------------------------------
 
 %package doc
 Summary:	Documentation for %{name}
@@ -125,6 +142,11 @@ Crypto++ Library is a free C++ class library of cryptographic schemes.
 
 This package contains documentation for %{name}.
 
+%files doc
+%doc doc/html License.txt Readme.txt
+
+#----------------------------------------------------------------------------
+
 %package progs
 Summary:	Programs for manipulating %{name} routines
 Group:		Development/Other
@@ -135,20 +157,24 @@ Crypto++ Library is a free C++ class library of cryptographic schemes.
 
 This package contains programs for manipulating %{name} routines.
 
+%files progs
+%{_bindir}/cryptest
+%{_datadir}/%{name}
+
+#----------------------------------------------------------------------------
+
 %prep
 %setup -qc
-%__rm -f GNUmakefile
+rm -f GNUmakefile
 %patch0 -p1 -b .autotools
-%patch1 -p1 -b .s390
-%patch2 -p1 -b .data-files-location
-%patch3 -p0 -b .x86-disable-sse2
-%patch4 -p1 -b .gcc47
+%patch1 -p1 -b .data-files-location
+%patch2 -p0 -b .x86-disable-sse2
 
 %build
 autoreconf -fi
 %configure2_5x
 %make
-%{_bindir}/doxygen
+doxygen
 
 %install
 %makeinstall_std
@@ -169,22 +195,4 @@ rm -f %{buildroot}%{_bindir}/cryptestcwd
 
 %check
 ./cryptestcwd v
-
-%files -n %{libname}
-%{_libdir}/libcryptopp.so.%{major}*
-
-%files -n %{devname}
-%{_includedir}/%{name}
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
-
-%files -n %{staticname}
-%{_libdir}/*.a
-
-%files doc
-%doc doc/html License.txt Readme.txt
-
-%files progs
-%{_bindir}/cryptest
-%{_datadir}/%{name}
 
