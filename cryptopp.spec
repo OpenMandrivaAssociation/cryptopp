@@ -171,6 +171,11 @@ rm -f GNUmakefile
 %patch2 -p0 -b .x86-disable-sse2
 
 %build
+
+# segfault with clang
+export CC=gcc
+export CXX=g++
+
 autoreconf -fi
 %configure2_5x \
 	--enable-static
