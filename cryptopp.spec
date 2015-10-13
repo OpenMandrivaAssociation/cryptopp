@@ -4,10 +4,12 @@
 %define staticname %mklibname %{name} -s -d
 %define fver %(echo %{version} |sed s/\\\\.//g)
 
+%define _disable_lto 1
+
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
 Version:	5.6.2
-Release:	6
+Release:	7
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
