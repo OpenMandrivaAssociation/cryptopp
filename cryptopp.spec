@@ -127,7 +127,7 @@ Crypto++ Library is a free C++ class library of cryptographic schemes.
 This package contains documentation for %{name}.
 
 %files doc
-%doc html-docs/html License.txt Readme.txt
+%doc html-docs License.txt Readme.txt
 
 #----------------------------------------------------------------------------
 
