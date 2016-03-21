@@ -151,6 +151,8 @@ This package contains programs for manipulating %{name} routines.
 %setup -qc
 rm -f GNUmakefile
 %apply_patches
+# fix file perms
+chmod go+rw *
 
 %build
 
