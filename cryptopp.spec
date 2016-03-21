@@ -159,7 +159,8 @@ export CC=gcc
 export CXX=g++
 
 autoreconf -fi
-%configure2_5x --disable-static
+%configure --disable-static
+
 %make
 doxygen
 
