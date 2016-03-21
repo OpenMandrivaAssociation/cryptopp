@@ -152,7 +152,7 @@ This package contains programs for manipulating %{name} routines.
 rm -f GNUmakefile
 %apply_patches
 # fix file perms
-chmod go+rw *
+chmod go+r *
 
 %build
 
