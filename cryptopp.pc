@@ -5,10 +5,10 @@ includedir=@INCLUDEDIR@
 
 Name: Crypto++
 Description: A free C++ class library of cryptographic schemes
-Version: 5.6.2
+Version: 5.6.3
 URL: http://www.cryptopp.com
 Requires:
 Conflicts:
-Libs: -L${libdir} -lcryptopp
+Libs: -lcryptopp
 Libs.private:
 Cflags:

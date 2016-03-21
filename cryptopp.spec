@@ -1,26 +1,23 @@
 %define major 6
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
-%define staticname %mklibname %{name} -s -d
 %define fver %(echo %{version} |sed s/\\\\.//g)
 
 %define _disable_lto 1
 
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
-Version:	5.6.2
-Release:	7
+Version:	5.6.3
+Release:	1
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
-Patch0:		cryptopp-5.6.2-autotools.patch
+Patch0:		cryptopp-5.6.3-autotools.patch
 # Debian patch installs TestVectors and TestData in /usr/share/cryptopp/
 # http://groups.google.com/group/cryptopp-users/browse_thread/thread/6fe2192340f07e5d
-Patch1:		cryptopp-5.6.2-data-files-location.patch
-# Enable SSE2 only on x86_64
-Patch2:		cryptopp-5.6.2-x86-disable-sse2.patch
+Patch1:		cryptopp-5.6.3-data-files-location.patch
 BuildRequires:	doxygen
 
 %description
@@ -119,21 +116,6 @@ for %{name}.
 
 #----------------------------------------------------------------------------
 
-%package -n %{staticname}
-Summary:	Static libraries for programs which will use %{name}
-Group:		Development/C++
-Requires:	%{devname} = %{EVRD}
-
-%description -n %{staticname}
-Crypto++ Library is a free C++ class library of cryptographic schemes.
-
-This package contains the static library for %{name}.
-
-%files -n %{staticname}
-%{_libdir}/*.a
-
-#----------------------------------------------------------------------------
-
 %package doc
 Summary:	Documentation for %{name}
 Group:		Development/C++
@@ -145,7 +127,7 @@ Crypto++ Library is a free C++ class library of cryptographic schemes.
 This package contains documentation for %{name}.
 
 %files doc
-%doc doc/html License.txt Readme.txt
+%doc html-docs/html License.txt Readme.txt
 
 #----------------------------------------------------------------------------
 
@@ -168,9 +150,7 @@ This package contains programs for manipulating %{name} routines.
 %prep
 %setup -qc
 rm -f GNUmakefile
-%patch0 -p1 -b .autotools
-%patch1 -p1 -b .data-files-location
-%patch2 -p0 -b .x86-disable-sse2
+%apply_patches
 
 %build
 
@@ -179,8 +159,7 @@ export CC=gcc
 export CXX=g++
 
 autoreconf -fi
-%configure2_5x \
-	--enable-static
+%configure2_5x --disable-static
 %make
 doxygen
 
