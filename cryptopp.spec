@@ -7,7 +7,7 @@
 
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
-Version:	5.6.3
+Version:	5.6.5
 Release:	1
 License:	Public Domain
 Group:		System/Libraries
@@ -15,9 +15,6 @@ Url:		http://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
 Patch0:		cryptopp-5.6.3-autotools.patch
-# Debian patch installs TestVectors and TestData in /usr/share/cryptopp/
-# http://groups.google.com/group/cryptopp-users/browse_thread/thread/6fe2192340f07e5d
-Patch1:		cryptopp-5.6.3-data-files-location.patch
 BuildRequires:	doxygen
 
 %description

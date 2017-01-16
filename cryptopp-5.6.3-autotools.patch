@@ -16,7 +16,7 @@
 +AC_OUTPUT(Makefile)
 --- cryptopp-5.6.1/Makefile.am	1970-01-01 03:00:00.000000000 +0300
 +++ cryptopp-5.6.1/Makefile.am	2010-10-21 15:32:36.000000000 +0300
-@@ -0,0 +1,308 @@
+@@ -0,0 +1,311 @@
 +AUTOMAKE_OPTIONS = foreign
 +lib_LTLIBRARIES = libcryptopp.la
 +libcryptopp_la_LIBADD = -lpthread
@@ -33,6 +33,7 @@
 +	base64.cpp \
 +	basecode.cpp \
 +	bfinit.cpp \
++	blake2.cpp \
 +	blowfish.cpp \
 +	blumshub.cpp \
 +	camellia.cpp \
@@ -40,6 +41,7 @@
 +	casts.cpp \
 +	cbcmac.cpp \
 +	ccm.cpp \
++	chacha.cpp \
 +	channels.cpp \
 +	cmac.cpp \
 +	cpu.cpp \
@@ -78,6 +80,7 @@
 +	idea.cpp \
 +	integer.cpp \
 +	iterhash.cpp \
++	keccak.cpp \
 +	luc.cpp \
 +	md2.cpp \
 +	md4.cpp \
@@ -290,7 +293,7 @@
 +bin_PROGRAMS = cryptest cryptestcwd
 +cryptest_CXXFLAGS = $(CXXFLAGS) -DPACKAGE_DATA_DIR='"/usr/share/cryptopp/"'
 +cryptest_SOURCES = \
-+	bench.cpp \
++	bench1.cpp \
 +	bench2.cpp \
 +	test.cpp \
 +	validat1.cpp \
@@ -305,7 +308,7 @@
 +cryptest_LDADD = $(lib_LTLIBRARIES)
 +cryptestcwd_CXXFLAGS = $(CXXFLAGS) -DPACKAGE_DATA_DIR='""'
 +cryptestcwd_SOURCES = \
-+	bench.cpp \
++	bench1.cpp \
 +	bench2.cpp \
 +	test.cpp \
 +	validat1.cpp \
