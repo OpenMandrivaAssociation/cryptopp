@@ -8,7 +8,7 @@
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
 Version:	5.6.5
-Release:	1
+Release:	2
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
@@ -152,11 +152,6 @@ rm -f GNUmakefile
 chmod go+r *
 
 %build
-
-# segfault with clang
-export CC=gcc
-export CXX=g++
-
 autoreconf -fi
 %configure --disable-static
 
@@ -171,7 +166,7 @@ sed -i -e 's/\r$//g' License.txt Readme.txt
 # Install pkg-config file
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
 # Set variables
-sed -i "s|@PREFIX@|%{_prefix}|g;s|@LIBDIR@|%{_libdir}|g;s|@INCLUDEDIR@|%{_includedir}|g" %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
+sed -i "s|@PREFIX@|%{_prefix}|g;s|@LIBDIR@|%{_libdir}|g;s|@INCLUDEDIR@|%{_includedir}|g;s|@VERSION@|%{version}|g" %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
 
 install -d %{buildroot}%{_datadir}/%{name}/TestVectors
 install -m 0644 TestVectors/* %{buildroot}%{_datadir}/%{name}/TestVectors
