@@ -16,7 +16,7 @@
 +AC_OUTPUT(Makefile)
 --- cryptopp-5.6.1/Makefile.am	1970-01-01 03:00:00.000000000 +0300
 +++ cryptopp-5.6.1/Makefile.am	2010-10-21 15:32:36.000000000 +0300
-@@ -0,0 +1,311 @@
+@@ -0,0 +1,322 @@
 +AUTOMAKE_OPTIONS = foreign
 +lib_LTLIBRARIES = libcryptopp.la
 +libcryptopp_la_LIBADD = -lpthread
@@ -163,12 +163,14 @@
 +	base64.h \
 +	basecode.h \
 +	bench.h \
++	blake2.h \
 +	blowfish.h \
 +	blumshub.h \
 +	camellia.h \
 +	cast.h \
 +	cbcmac.h \
 +	ccm.h \
++	chacha.h \
 +	channels.h \
 +	cmac.h \
 +	config.h \
@@ -191,6 +193,7 @@
 +	eprecomp.h \
 +	esign.h \
 +	factory.h \
++	fhmqv.h \
 +	files.h \
 +	filters.h \
 +	fips140.h \
@@ -203,18 +206,22 @@
 +	gost.h \
 +	gzip.h \
 +	hex.h \
++	hkdf.h \
 +	hmac.h \
++	hmqv.h \
 +	hrtimer.h \
 +	ida.h \
 +	idea.h \
 +	integer.h \
 +	iterhash.h \
++	keccak.h \
 +	lubyrack.h \
 +	luc.h \
 +	md2.h \
 +	md4.h \
 +	md5.h \
 +	mdc.h \
++	mersenne.h \
 +	misc.h \
 +	modarith.h \
 +	modes.h \
@@ -227,6 +234,7 @@
 +	oaep.h \
 +	oids.h \
 +	osrng.h \
++	ossig.h \
 +	panama.h \
 +	pch.h \
 +	pkcspad.h \
@@ -240,6 +248,8 @@
 +	rc2.h \
 +	rc5.h \
 +	rc6.h \
++	rdrand.h \
++	resource.h \
 +	rijndael.h \
 +	ripemd.h \
 +	rng.h \
@@ -265,6 +275,7 @@
 +	strciphr.h \
 +	tea.h \
 +	tiger.h \
++	trap.h \
 +	trdlocal.h \
 +	trunhash.h \
 +	ttmac.h \
@@ -287,7 +298,7 @@
 +noinst_HEADERS = \
 +	local.h \
 +	resource.h \
-+	serpentp.h
++	serpentp.h \
 +	validate.h
 +
 +bin_PROGRAMS = cryptest cryptestcwd
