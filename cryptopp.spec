@@ -7,8 +7,8 @@
 
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
-Version:	5.6.5
-Release:	4
+Version:	8.2.0
+Release:	1
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
@@ -16,6 +16,9 @@ Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
 Patch0:		cryptopp-5.6.3-autotools.patch
 BuildRequires:	doxygen
+%ifarch %{ix86} %{x86_64}
+BuildRequires:	nasm
+%endif
 
 %description
 Crypto++ Library is a public domain C++ class library of cryptographic 
@@ -145,23 +148,22 @@ This package contains programs for manipulating %{name} routines.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qc
-rm -f GNUmakefile
-%apply_patches
-# fix file perms
-chmod go+r *
+%autosetup -c -p1
+sed -i -e 's/\r$//g' License.txt Readme.txt
+%ifarch %{ix86} %{x86_64}
+./rdrand-nasm.sh
+%endif
 
 %build
-autoreconf -fi
-%configure --disable-static
+%setup_compile_flags
+%make_build -f GNUmakefile \
+  ZOPT='' \
+  shared cryptest.exe
 
-%make
 doxygen
 
 %install
-%makeinstall_std
-
-sed -i -e 's/\r$//g' License.txt Readme.txt
+%make_install INSTALL="install -p -c " PREFIX="%{_prefix}" LIBDIR="%{_libdir}"
 
 # Install pkg-config file
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_libdir}/pkgconfig/cryptopp.pc
