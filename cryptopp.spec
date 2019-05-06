@@ -111,6 +111,7 @@ for %{name}.
 %files -n %{devname}
 %{_includedir}/%{name}
 %{_libdir}/*.so
+%{_libdir}/*.a
 %{_libdir}/pkgconfig/*.pc
 
 #----------------------------------------------------------------------------
