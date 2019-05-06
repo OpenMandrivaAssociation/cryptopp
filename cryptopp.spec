@@ -14,7 +14,6 @@ Group:		System/Libraries
 Url:		http://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
-Patch0:		cryptopp-5.6.3-autotools.patch
 BuildRequires:	doxygen
 %ifarch %{ix86} %{x86_64}
 BuildRequires:	nasm
