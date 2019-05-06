@@ -175,8 +175,9 @@ install -d %{buildroot}%{_datadir}/%{name}/TestData
 install -m 0644 TestData/* %{buildroot}%{_datadir}/%{name}/TestData
 
 rm -f %{buildroot}%{_bindir}/cryptestcwd
-# Rename cryptest    
+# Rename cryptest
 mv %{buildroot}%{_bindir}/cryptest.exe %{buildroot}%{_bindir}/cryptest
+
 %check
-./cryptest.exe -v
+./cryptest.exe v
 
