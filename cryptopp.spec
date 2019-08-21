@@ -9,7 +9,7 @@
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
 Version:	8.2.0
-Release:	2
+Release:	3
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
