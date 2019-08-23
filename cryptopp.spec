@@ -4,12 +4,12 @@
 %define fver %(echo %{version} |sed s/\\\\.//g)
 
 %define _disable_lto 1
-%global optflags %{optflags} -fPIC
+%global optflags %{optflags} -Ofast -fpic
 
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
 Version:	8.2.0
-Release:	3
+Release:	4
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
