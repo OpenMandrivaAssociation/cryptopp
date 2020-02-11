@@ -4,16 +4,18 @@
 %define fver %(echo %{version} |sed s/\\\\.//g)
 
 %define _disable_lto 1
-%global optflags %{optflags} -Ofast -fpic
+%global optflags %{optflags} -Ofast -fPIC -fopenmp
+%global ldflags %{ldflags} -fPIC -fopenmp
 
 Summary:	Public domain C++ class library of cryptographic schemes
 Name:		cryptopp
 Version:	8.2.0
-Release:	5
+Release:	6
 License:	Public Domain
 Group:		System/Libraries
 Url:		http://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
+Patch0:		cryptopp-8.2.0-libm-linkage.patch
 Source1:	cryptopp.pc
 BuildRequires:	doxygen
 %ifarch %{ix86} %{x86_64}
@@ -156,7 +158,12 @@ sed -i -e 's/\r$//g' License.txt Readme.txt
 %endif
 
 %build
-%setup_compile_flags
+%set_build_flags
+# FIXME workaround for build failure with clang 10-20200207
+# Unresolved reference to __log_finite (and a few others)
+# even though those symbols are in glibc 2.31
+export CC=gcc
+export CXX=g++
 %make_build -f GNUmakefile \
   ZOPT='' \
   shared cryptest.exe

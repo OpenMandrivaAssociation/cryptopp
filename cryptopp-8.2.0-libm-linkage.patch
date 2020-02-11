@@ -1,0 +1,24 @@
+diff -up cryptopp-8.2.0/GNUmakefile.omv~ cryptopp-8.2.0/GNUmakefile
+--- cryptopp-8.2.0/GNUmakefile.omv~	2020-02-11 15:05:56.543315026 +0100
++++ cryptopp-8.2.0/GNUmakefile	2020-02-11 15:07:18.835309637 +0100
+@@ -1290,9 +1290,9 @@ endif
+ 
+ libcryptopp.so$(SOLIB_VERSION_SUFFIX): $(LIBOBJS)
+ ifeq ($(XLC_COMPILER),1)
+-	$(CXX) -qmkshrobj $(SOLIB_FLAGS) -o $@ $(strip $(CXXFLAGS)) $(LDFLAGS) $(LIBOBJS) $(LDLIBS)
++	$(CXX) -qmkshrobj $(SOLIB_FLAGS) -o $@ $(strip $(CXXFLAGS)) $(LDFLAGS) $(LIBOBJS) $(LDLIBS) -lm
+ else
+-	$(CXX) -shared $(SOLIB_FLAGS) -o $@ $(strip $(CXXFLAGS)) $(LDFLAGS) $(LIBOBJS) $(LDLIBS)
++	$(CXX) -shared $(SOLIB_FLAGS) -o $@ $(strip $(CXXFLAGS)) $(LDFLAGS) $(LIBOBJS) $(LDLIBS) -lm
+ endif
+ ifeq ($(HAS_SOLIB_VERSION),1)
+ 	-$(LN) libcryptopp.so$(SOLIB_VERSION_SUFFIX) libcryptopp.so
+@@ -1303,7 +1303,7 @@ libcryptopp.dylib: $(LIBOBJS)
+ 	$(CXX) -dynamiclib -o $@ $(strip $(CXXFLAGS)) -install_name "$@" -current_version "$(LIB_MAJOR).$(LIB_MINOR).$(LIB_PATCH)" -compatibility_version "$(LIB_MAJOR).$(LIB_MINOR)" -headerpad_max_install_names $(LDFLAGS) $(LIBOBJS)
+ 
+ cryptest.exe:libcryptopp.a $(TESTOBJS)
+-	$(CXX) -o $@ $(strip $(CXXFLAGS)) $(TESTOBJS) ./libcryptopp.a $(LDFLAGS) $(LDLIBS)
++	$(CXX) -o $@ $(strip $(CXXFLAGS)) $(TESTOBJS) ./libcryptopp.a $(LDFLAGS) $(LDLIBS) -lm
+ 
+ # Makes it faster to test changes
+ nolib: $(OBJS)
