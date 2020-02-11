@@ -18,6 +18,8 @@ Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Patch0:		cryptopp-8.2.0-libm-linkage.patch
 Source1:	cryptopp.pc
 BuildRequires:	doxygen
+# FIXME switch to LLVM OpenMP when building with clang is fixed
+BuildRequires:	gomp-devel
 %ifarch %{ix86} %{x86_64}
 BuildRequires:	nasm
 %endif
