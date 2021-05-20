@@ -16,11 +16,6 @@ Url:		http://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
 BuildRequires:	doxygen
-# FIXME switch to LLVM OpenMP when building with clang is fixed
-BuildRequires:	gomp-devel
-%ifarch %{ix86} %{x86_64}
-BuildRequires:	nasm
-%endif
 
 %description
 Crypto++ Library is a public domain C++ class library of cryptographic 
@@ -153,9 +148,6 @@ This package contains programs for manipulating %{name} routines.
 %prep
 %autosetup -c -p1
 sed -i -e 's/\r$//g' License.txt Readme.txt
-%ifarch %{ix86} %{x86_64}
-./rdrand-nasm.sh
-%endif
 
 %build
 %set_build_flags
