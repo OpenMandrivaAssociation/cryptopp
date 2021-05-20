@@ -2,7 +2,7 @@
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 %define fver %(echo %{version} |sed s/\\\\.//g)
-
+%define _disable_lto 1
 %global optflags %{optflags} -O3 -fPIC -fopenmp
 %global ldflags %{ldflags} -fPIC -fopenmp
 
