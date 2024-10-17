@@ -12,7 +12,7 @@ Version:	8.9.0
 Release:	1
 License:	Public Domain
 Group:		System/Libraries
-Url:		http://www.cryptopp.com/
+Url:		https://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
 BuildRequires:	doxygen
