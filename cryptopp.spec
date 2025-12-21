@@ -15,6 +15,7 @@ Group:		System/Libraries
 Url:		https://www.cryptopp.com/
 Source0:	http://www.cryptopp.com/%{name}%{fver}.zip
 Source1:	cryptopp.pc
+BuildRequires:	make
 BuildRequires:	doxygen
 BuildRequires:	gomp-devel
 
